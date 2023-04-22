@@ -8,6 +8,8 @@ from torch.utils.data.sampler import Sampler
 import numpy as np
 
 from utils.dataset import OmniglotDataset, MiniImageNetDataset, get_data_dir
+#
+ds = tfds.load('huggingface:imagenet_sketch')
 
 warnings.filterwarnings("ignore")
 
@@ -19,12 +21,12 @@ def get_dataloader(args, *modes):
     if 'train' in modes[0]:
         print("Loading data...", end='')
     for mode in modes:
-        if args.dataset == 'omniglot':
-            mdb_path = os.path.join(DATADIR, 'proto_mdb', 'omniglot_' + mode + '.mdb')
+        if args.dataset == 'huggingface:imagenet_sketch':
+            mdb_path = os.path.join(DATADIR, 'proto_mdb', 'huggingface:imagenet_sketch_' + mode + '.mdb')
             try:
                 dataset = torch.load(mdb_path)
             except FileNotFoundError:
-                dataset = OmniglotDataset(mode)
+                dataset = imagenet_sketchDataset(mode)
                 if not os.path.exists(os.path.dirname(mdb_path)):
                     os.makedirs(os.path.dirname(mdb_path))
                 torch.save(dataset, mdb_path)
