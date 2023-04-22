@@ -7,9 +7,13 @@ from torch.utils.data import DataLoader
 from torch.utils.data.sampler import Sampler
 import numpy as np
 
+import tensorflow.compat.v2 as tf
+import tensorflow_datasets as tfds
+
 from utils.dataset import OmniglotDataset, MiniImageNetDataset, get_data_dir
 #
 ds = tfds.load('huggingface:imagenet_sketch')
+
 
 warnings.filterwarnings("ignore")
 
